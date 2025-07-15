@@ -66,3 +66,14 @@ export interface Product {
     password: string;
     confirmPassword: string;
   }
+  export interface Message {
+    id: string;
+    text: string;
+    sender: 'user' | 'bot';
+    timestamp: Date;
+  }
+  
+  export interface ChatbotProps {
+    isOpen: boolean;
+    onClose: () => void;
+  }

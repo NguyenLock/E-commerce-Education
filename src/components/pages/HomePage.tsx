@@ -6,11 +6,11 @@ import { FeaturedCategories } from "../section/FeaturedCategories";
 import { StatsSection } from "../section/StatsSection";
 import { TestimonialsSection } from "../section/TestimonialsSection";
 import { CTASection } from "../section/CTASection";
-import { FilterBar } from "../Features/FilterBar";
+import { FilterBar } from "../Features/Filterbar";
 import { ProductCard } from "../Features/ProductCard";
 import { ProductModal } from "../Features/ProductModal";
 import { Suggestions } from "../Features/Suggestions";
-import { Chatbot } from "../Features/ChatBot";
+import { Chatbot } from "../Features/Chatbot";
 import { ProductCardSkeleton } from "../UI/Skeleton";
 import { apiService } from "../../service/api";
 import { useApp } from "../../context/AppContext";
@@ -28,7 +28,6 @@ export const HomePage: React.FC<HomePageProps> = ({
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [isChatbotOpen, setIsChatbotOpen] = useState(false);
   const [showProductSection, setShowProductSection] = useState(false);
   const [filters, setFilters] = useState<SearchFilters>({
     query: "",
@@ -129,12 +128,12 @@ export const HomePage: React.FC<HomePageProps> = ({
       }
     }, 100);
   };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header
         onSearchChange={handleSearchChange}
         onFavoritesClick={onShowFavorites}
-        onChatbotClick={() => setIsChatbotOpen(true)}
         onAuthClick={onShowAuth}
         favoritesCount={favorites.length}
       />
@@ -209,7 +208,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         onClose={() => setSelectedProduct(null)}
       />
 
-      <Chatbot isOpen={isChatbotOpen} onClose={() => setIsChatbotOpen(false)} />
+      <Chatbot />
     </div>
   );
 };

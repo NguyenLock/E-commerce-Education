@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Heart, Menu, X, Bot, User, LogOut } from 'lucide-react';
+import { Search, Heart, Menu, X, User, LogOut } from 'lucide-react';
 import { Button } from '../UI/Button';
 import { Input } from '../UI/Input';
 import { useAuth } from '../../context/AuthContext';
@@ -7,7 +7,6 @@ import { useAuth } from '../../context/AuthContext';
 interface HeaderProps {
   onSearchChange: (query: string) => void;
   onFavoritesClick: () => void;
-  onChatbotClick: () => void;
   onAuthClick: () => void;
   favoritesCount: number;
 }
@@ -15,7 +14,6 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({
   onSearchChange,
   onFavoritesClick,
-  onChatbotClick,
   onAuthClick,
   favoritesCount
 }) => {
@@ -34,6 +32,7 @@ export const Header: React.FC<HeaderProps> = ({
     await logout();
     setShowUserMenu(false);
   };
+
   return (
     <header className="bg-white shadow-lg sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,14 +61,6 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="hidden md:flex items-center space-x-4">
             <Button
               variant="ghost"
-              icon={Bot}
-              onClick={onChatbotClick}
-              className="text-gray-600 hover:text-primary-500"
-            >
-              AI Chat
-            </Button>
-            <Button
-              variant="ghost"
               icon={Heart}
               onClick={onFavoritesClick}
               className="text-gray-600 hover:text-primary-500 relative"
@@ -82,42 +73,6 @@ export const Header: React.FC<HeaderProps> = ({
               )}
             </Button>
             
-            {isAuthenticated ? (
-              <div className="flex items-center space-x-3 py-2">
-                <div className="flex items-center space-x-2">
-                  {user?.avatar ? (
-                    <img
-                      src={user.avatar}
-                      alt={user.name}
-                      className="w-8 h-8 rounded-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-8 h-8 bg-primary-500 rounded-full flex items-center justify-center">
-                      <User className="w-4 h-4 text-white" />
-                    </div>
-                  )}
-                  <span className="font-medium text-gray-900">{user?.name}</span>
-                </div>
-                <Button
-                  variant="ghost"
-                  icon={LogOut}
-                  onClick={handleLogout}
-                  size="sm"
-                >
-                  Đăng xuất
-                </Button>
-              </div>
-            ) : (
-              <Button
-                variant="primary"
-                onClick={onAuthClick}
-                fullWidth
-              >
-                Đăng nhập
-              </Button>
-            )}
-            
-            {/* User Menu */}
             {isAuthenticated ? (
               <div className="relative">
                 <button
@@ -185,15 +140,6 @@ export const Header: React.FC<HeaderProps> = ({
                 icon={Search}
                 fullWidth
               />
-              <Button
-                variant="ghost"
-                icon={Bot}
-                onClick={onChatbotClick}
-                fullWidth
-                className="justify-start"
-              >
-                AI Chat
-              </Button>
               <Button
                 variant="ghost"
                 icon={Heart}
