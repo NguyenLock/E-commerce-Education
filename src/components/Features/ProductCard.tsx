@@ -1,21 +1,44 @@
 import React from 'react';
-import { Star, Heart, Clock, User} from 'lucide-react';
-import  type { Product } from '../../types/index';
+import { Heart } from 'lucide-react';
 import { Card } from '../UI/Card';
 import { Button } from '../UI/Button';
-import { Badge } from '../UI/Badget';
 import { useApp } from '../../context/AppContext';
+import type { Product } from '../../types';
 
 interface ProductCardProps {
   product: Product;
   onViewDetails: (product: Product) => void;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, onViewDetails }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  onViewDetails,
+}) => {
   const { favorites, addToFavorites, removeFromFavorites } = useApp();
   const isFavorite = favorites.includes(product.id);
 
-  const handleFavoriteClick = (e: React.MouseEvent) => {
+  const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(price);
+  };
+
+  const calculateDiscount = (original: number, discounted: number) => {
+    return Math.round(((original - discounted) / original) * 100);
+  };
+
+  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    // Prevent card click when clicking on favorite button or view detail button
+    if ((e.target as HTMLElement).closest('button')) {
+      return;
+    }
+    onViewDetails(product);
+  };
+
+  const handleToggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (isFavorite) {
       removeFromFavorites(product.id);
@@ -24,105 +47,113 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onViewDetails
     }
   };
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND'
-    }).format(price);
-  };
-
-  const discountPercent = product.originalPrice
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
-    : 0;
-
   return (
-    <Card hover className="group">
-      <div className="relative cursor-pointer" onClick={() => onViewDetails(product)}>
+    <Card
+      hover
+      className="flex flex-col h-full overflow-hidden group"
+      padding="none"
+      onClick={handleCardClick}
+    >
+      {/* Image Container */}
+      <div className="relative w-full pt-[56.25%]">
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-48 object-cover rounded-lg mb-4 group-hover:scale-105 transition-transform duration-300"
+          className="absolute inset-0 w-full h-full object-cover"
         />
-        {discountPercent > 0 && (
-          <Badge
-            variant="warning"
-            className="absolute top-2 left-2"
-          >
-            -{discountPercent}%
-          </Badge>
+        {/* Discount Badge */}
+        {product.originalPrice && product.originalPrice > product.price && (
+          <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-md text-sm font-medium">
+            -{calculateDiscount(product.originalPrice, product.price)}%
+          </div>
         )}
+        {/* Favorite Button */}
         <button
-          onClick={handleFavoriteClick}
-          className={`absolute top-2 right-2 p-2 rounded-full transition-all duration-200 ${
-            isFavorite
-              ? 'bg-red-500 text-white'
-              : 'bg-white text-gray-600 hover:bg-red-50 hover:text-red-500'
-          }`}
+          onClick={handleToggleFavorite}
+          className="absolute top-3 right-3 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center transition-transform hover:scale-110"
         >
-          <Heart className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
+          <Heart
+            className={`w-5 h-5 ${
+              isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-600'
+            }`}
+          />
         </button>
       </div>
 
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <Badge variant="accent" size="sm">
+      {/* Content */}
+      <div className="flex flex-col flex-grow p-4">
+        {/* Category & Level */}
+        <div className="flex gap-2 mb-2">
+          <span className="px-2 py-1 bg-primary-50 text-primary-700 text-xs font-medium rounded">
             {product.category}
-          </Badge>
-          <Badge variant="secondary" size="sm">
+          </span>
+          <span className="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded">
             {product.level}
-          </Badge>
+          </span>
         </div>
 
-        <h3 className="font-semibold text-lg text-gray-900 line-clamp-2 group-hover:text-primary-600 transition-colors">
+        {/* Title */}
+        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
           {product.name}
         </h3>
 
-        <p className="text-gray-600 text-sm line-clamp-2">{product.description}</p>
+        {/* Description */}
+        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+          {product.description}
+        </p>
 
-        <div className="flex items-center space-x-4 text-sm text-gray-500">
-          <div className="flex items-center">
-            <User className="w-4 h-4 mr-1" />
-            {product.instructor}
-          </div>
-          <div className="flex items-center">
-            <Clock className="w-4 h-4 mr-1" />
-            {product.duration}
+        {/* Instructor */}
+        <div className="flex items-center mt-auto mb-4">
+          <img
+            src={product.instructor.avatar}
+            alt={product.instructor.name}
+            className="w-8 h-8 rounded-full mr-2"
+          />
+          <div>
+            <p className="text-sm font-medium text-gray-900">
+              {product.instructor.name}
+            </p>
+            <p className="text-xs text-gray-500">{product.instructor.title}</p>
           </div>
         </div>
 
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="flex items-center">
-              <Star className="w-4 h-4 text-yellow-400 fill-current" />
-              <span className="ml-1 text-sm text-gray-600">
-                {product.rating} ({product.reviews})
+        {/* Price & Duration */}
+        <div className="flex items-end justify-between mb-4">
+          <div>
+            <p className="text-xl font-bold text-gray-900">
+              {formatPrice(product.price)}
+            </p>
+            {product.originalPrice && product.originalPrice > product.price && (
+              <p className="text-sm text-gray-500 line-through">
+                {formatPrice(product.originalPrice)}
+              </p>
+            )}
+          </div>
+          <div className="text-right">
+            <p className="text-sm text-gray-500">{product.duration}</p>
+            <div className="flex items-center gap-1">
+              <span className="text-yellow-400">★</span>
+              <span className="text-sm font-medium">
+                {product.rating.toFixed(1)}
+              </span>
+              <span className="text-sm text-gray-500">
+                ({product.reviews} đánh giá)
               </span>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <span className="text-xl font-bold text-primary-600">
-              {formatPrice(product.price)}
-            </span>
-            {product.originalPrice && (
-              <span className="text-sm text-gray-500 line-through">
-                {formatPrice(product.originalPrice)}
-              </span>
-            )}
-          </div>
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={(e) => {
-              e.stopPropagation();
-              onViewDetails(product);
-            }}
-          >
-            Xem chi tiết
-          </Button>
-        </div>
+        {/* View Detail Button */}
+        <Button
+          onClick={(e) => {
+            e.stopPropagation();
+            onViewDetails(product);
+          }}
+          className="w-full"
+          variant="outline"
+        >
+          Xem chi tiết
+        </Button>
       </div>
     </Card>
   );

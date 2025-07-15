@@ -4,9 +4,11 @@ interface CardProps {
   children: React.ReactNode;
   className?: string;
   hover?: boolean;
-  shadow?: 'sm' | 'md' | 'lg' | 'xl';
-  rounded?: 'sm' | 'md' | 'lg' | 'xl';
-  padding?: 'sm' | 'md' | 'lg' | 'xl';
+  shadow?: 'sm' | 'md' | 'lg' | 'xl' | 'none';
+  rounded?: 'sm' | 'md' | 'lg' | 'xl' | 'none';
+  padding?: 'sm' | 'md' | 'lg' | 'xl' | 'none';
+  border?: boolean;
+  onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -15,11 +17,18 @@ export const Card: React.FC<CardProps> = ({
   hover = false,
   shadow = 'md',
   rounded = 'lg',
-  padding = 'md'
+  padding = 'md',
+  border = true,
+  onClick
 }) => {
-  const baseClasses = 'bg-white border border-gray-200 transition-all duration-300';
+  const baseClasses = [
+    'bg-white',
+    'transition-all duration-300',
+    border ? 'border border-gray-200' : ''
+  ].join(' ');
   
   const shadowClasses = {
+    none: '',
     sm: 'shadow-sm',
     md: 'shadow-md',
     lg: 'shadow-lg',
@@ -27,6 +36,7 @@ export const Card: React.FC<CardProps> = ({
   };
 
   const roundedClasses = {
+    none: '',
     sm: 'rounded-sm',
     md: 'rounded-md',
     lg: 'rounded-lg',
@@ -34,17 +44,20 @@ export const Card: React.FC<CardProps> = ({
   };
 
   const paddingClasses = {
+    none: '',
     sm: 'p-3',
     md: 'p-4',
     lg: 'p-6',
     xl: 'p-8'
   };
 
-  const hoverClasses = hover ? 'hover:shadow-lg hover:-translate-y-1' : '';
+  const hoverClasses = hover ? 'hover:shadow-lg hover:-translate-y-1 cursor-pointer' : '';
+  const clickClasses = onClick ? 'cursor-pointer' : '';
 
   return (
     <div
-      className={`${baseClasses} ${shadowClasses[shadow]} ${roundedClasses[rounded]} ${paddingClasses[padding]} ${hoverClasses} ${className}`}
+      onClick={onClick}
+      className={`${baseClasses} ${shadowClasses[shadow]} ${roundedClasses[rounded]} ${paddingClasses[padding]} ${hoverClasses} ${clickClasses} ${className}`}
     >
       {children}
     </div>

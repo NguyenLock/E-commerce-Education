@@ -9,7 +9,11 @@ export interface Product {
     category: string;
     rating: number;
     reviews: number;
-    instructor: string;
+    instructor: {
+      name: string;
+      title: string;
+      avatar: string;
+    };
     duration: string;
     level: 'Beginner' | 'Intermediate' | 'Advanced';
     tags: string[];
