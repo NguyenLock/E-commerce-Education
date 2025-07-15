@@ -31,7 +31,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   };
 
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    // Prevent card click when clicking on favorite button or view detail button
     if ((e.target as HTMLElement).closest('button')) {
       return;
     }
@@ -93,33 +92,30 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         </div>
 
         {/* Title */}
-        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+        <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2 min-h-[3.5rem]">
           {product.name}
         </h3>
 
         {/* Description */}
-        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+        <p className="text-gray-600 text-sm mb-4 line-clamp-2 min-h-[2.5rem]">
           {product.description}
         </p>
 
-        {/* Instructor */}
-        <div className="flex items-center mt-auto mb-4">
-          <img
-            src={product.instructor.avatar}
-            alt={product.instructor.name}
-            className="w-8 h-8 rounded-full mr-2"
-          />
-          <div>
-            <p className="text-sm font-medium text-gray-900">
-              {product.instructor.name}
-            </p>
-            <p className="text-xs text-gray-500">{product.instructor.title}</p>
+
+
+        {/* Rating & Duration */}
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-1">
+            <span className="text-yellow-400">★</span>
+            <span className="text-sm font-medium">{product.rating.toFixed(1)}</span>
+            <span className="text-sm text-gray-500">({product.reviews} đánh giá) </span>
           </div>
+          <p className="text-sm text-gray-500">{product.duration}</p>
         </div>
 
-        {/* Price & Duration */}
-        <div className="flex items-end justify-between mb-4">
-          <div>
+        {/* Price */}
+        <div className="flex flex-col mb-4">
+          <div className="flex items-center gap-2">
             <p className="text-xl font-bold text-gray-900">
               {formatPrice(product.price)}
             </p>
@@ -128,18 +124,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 {formatPrice(product.originalPrice)}
               </p>
             )}
-          </div>
-          <div className="text-right">
-            <p className="text-sm text-gray-500">{product.duration}</p>
-            <div className="flex items-center gap-1">
-              <span className="text-yellow-400">★</span>
-              <span className="text-sm font-medium">
-                {product.rating.toFixed(1)}
-              </span>
-              <span className="text-sm text-gray-500">
-                ({product.reviews} đánh giá)
-              </span>
-            </div>
           </div>
         </div>
 

@@ -12,9 +12,9 @@ interface FilterBarProps {
 export const FilterBar: React.FC<FilterBarProps> = ({ filters, onFiltersChange }) => {
   const priceRanges = [
     { value: 'all', label: 'Tất cả' },
-    { value: 'under500', label: 'Dưới 500K' },
-    { value: '500to1000', label: '500K - 1 triệu' },
-    { value: 'over1000', label: 'Trên 1 triệu' }
+    { value: 'under500', label: '< 500K' },
+    { value: '500to1000', label: '500K - 1M' },
+    { value: 'over1000', label: '> 1M' }
   ];
 
   const categories = [
@@ -52,13 +52,14 @@ export const FilterBar: React.FC<FilterBarProps> = ({ filters, onFiltersChange }
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Khoảng giá
           </label>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-nowrap gap-2">
             {priceRanges.map((range) => (
               <Button
                 key={range.value}
                 variant={filters.priceRange === range.value ? 'primary' : 'outline'}
                 size="sm"
                 onClick={() => handleFilterChange('priceRange', range.value)}
+                className="min-w-[80px] text-center"
               >
                 {range.label}
               </Button>
