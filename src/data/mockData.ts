@@ -209,12 +209,15 @@ export const mockSuggestions = [
     price: 890000,
     image: 'https://images.pexels.com/photos/574071/pexels-photo-574071.jpeg?auto=compress&cs=tinysrgb&w=400',
     description: 'Master modern JavaScript with ES6+ features and best practices.',
+    fullDescription: 'Deep dive into modern JavaScript features including async/await, generators, decorators, and more.',
     category: 'Programming',
     rating: 4.7,
     reviews: 654,
     instructor: 'Robert Kim',
     duration: '8 weeks',
-    level: 'Advanced'
+    level: 'Advanced' as const,
+    tags: ['JavaScript', 'ES6+', 'Web Development'],
+    features: ['Modern JS features', 'Best practices', 'Real-world examples']
   },
   {
     id: '10',
@@ -222,11 +225,14 @@ export const mockSuggestions = [
     price: 720000,
     image: 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=400',
     description: 'Professional English communication for business environments.',
+    fullDescription: 'Learn professional business English communication skills for meetings, presentations, and negotiations.',
     category: 'Language Learning',
     rating: 4.6,
     reviews: 432,
     instructor: 'Jennifer White',
     duration: '10 weeks',
-    level: 'Intermediate'
+    level: 'Intermediate' as const,
+    tags: ['Business English', 'Professional Communication', 'ESL'],
+    features: ['Business vocabulary', 'Email writing', 'Presentation skills']
   }
 ];
