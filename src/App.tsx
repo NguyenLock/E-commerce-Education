@@ -1,20 +1,58 @@
-import { Toaster } from 'react-hot-toast'
-import { Heart } from 'lucide-react'
+import React, { useState } from 'react';
+import { HomePage } from './components/pages/HomePage';
+import { FavoritesPage } from './components/pages/FavoritesPage';
+import { AuthPage } from './components/pages/AuthPage';
+import { Footer } from './components/layout/Footer';
+import { ToastContainer } from './components/UI/Toast';
+import { AppProvider, useApp } from './context/AppContext';
+import { AuthProvider } from './context/AuthContext';
+
+type PageType = 'home' | 'favorites' | 'auth';
+
+const AppContent: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState<PageType>('home');
+  const { toasts, removeToast } = useApp();
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'home':
+        return (
+          <HomePage 
+            onShowFavorites={() => setCurrentPage('favorites')}
+            onShowAuth={() => setCurrentPage('auth')}
+          />
+        );
+      case 'favorites':
+        return <FavoritesPage onBack={() => setCurrentPage('home')} />;
+      case 'auth':
+        return <AuthPage onBack={() => setCurrentPage('home')} />;
+      default:
+        return (
+          <HomePage 
+            onShowFavorites={() => setCurrentPage('favorites')}
+            onShowAuth={() => setCurrentPage('auth')}
+          />
+        );
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {renderPage()}
+      {currentPage !== 'auth' && <Footer />}
+      <ToastContainer toasts={toasts} onRemove={removeToast} />
+    </div>
+  );
+};
 
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
-        <h1 className="text-4xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-          Hello World <Heart className="text-red-500" />
-        </h1>
-        <p className="text-gray-600">
-          Welcome to React + Tailwind CSS + TypeScript
-        </p>
-      </div>
-      <Toaster position="top-right" />
-    </div>
-  )
+    <AppProvider>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
+    </AppProvider>
+  );
 }
 
-export default App
+export default App;
