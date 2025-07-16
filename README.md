@@ -84,7 +84,6 @@ Một nền tảng học tập trực tuyến toàn diện được xây dựng 
 - **Filterbar**: Lọc khóa học theo tiêu chí
 - **ProductCard**: Hiển thị thông tin khóa học
 - **Chatbot**: Trợ lý AI tư vấn
-- **LanguageSwitch**: Chuyển đổi ngôn ngữ
 
 ## 👥 Phát triển bởi
 - **Developer**: **Nguyen Tan Loc**
