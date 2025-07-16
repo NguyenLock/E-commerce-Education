@@ -78,7 +78,3 @@ Một nền tảng học tập trực tuyến toàn diện được xây dựng 
 - **Developer**: **Nguyen Tan Loc**
 - **Project**: E-commerce Education Platform
 - **Stack**: React + TypeScript + Vite
-
----
-
-Để biết thêm thông tin chi tiết, vui lòng liên hệ team phát triển.
