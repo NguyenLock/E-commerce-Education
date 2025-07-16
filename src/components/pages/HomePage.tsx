@@ -58,7 +58,7 @@ export const HomePage: React.FC<HomePageProps> = ({
     } finally {
       setTimeout(() => {
         setLoading(false);
-      }, 1000);
+      }, 3000);
     }
   };
 

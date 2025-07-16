@@ -24,6 +24,9 @@ Một nền tảng học tập trực tuyến toàn diện được xây dựng 
 - **Chatbot tư vấn**: Hỗ trợ tìm kiếm khóa học phù hợp
 - **Gợi ý cá nhân hóa**: Đề xuất khóa học dựa trên sở thích
 
+### 🌐 Đa ngôn ngữ
+- **Tiếng Việt & Tiếng Anh**: Hỗ trợ chuyển đổi ngôn ngữ
+- **Lưu trữ cài đặt**: Ghi nhớ lựa chọn ngôn ngữ của người dùng
 
 ## 🛠️ Công nghệ sử dụng
 
