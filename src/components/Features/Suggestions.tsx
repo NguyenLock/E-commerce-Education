@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Sparkles, RefreshCw } from 'lucide-react';
-import  type { Product } from '../../types/index';
+import  type { Product, SuggestionsProps } from '../../types/index';
 import { Button } from '../UI/Button';
 import { Card } from '../UI/Card';
 import { ProductCard } from './ProductCard';
@@ -8,9 +8,6 @@ import { ProductCardSkeleton } from '../UI/Skeleton';
 import { apiService } from '../../service/api';
 import { useApp } from '../../context/AppContext';
 
-interface SuggestionsProps {
-  onProductClick: (product: Product) => void;
-}
 
 export const Suggestions: React.FC<SuggestionsProps> = ({ onProductClick }) => {
   const [suggestions, setSuggestions] = useState<Product[]>([]);

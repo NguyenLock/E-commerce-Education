@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { Search, Heart, Menu, X, User, LogOut, History } from 'lucide-react';
+import { Search, Heart, Menu, X, User, LogOut, History, ShoppingCart } from 'lucide-react';
 import { Button } from '../UI/Button';
 import { Input } from '../UI/Input';
 import { useAuth } from '../../context/AuthContext';
+import { useApp } from '../../context/AppContext';
 
 interface HeaderProps {
   onSearchChange: (query: string) => void;
   onFavoritesClick: () => void;
   onViewHistoryClick: () => void;
+  onCartClick: () => void;
   onAuthClick: () => void;
   favoritesCount: number;
 }
@@ -16,6 +18,7 @@ export const Header: React.FC<HeaderProps> = ({
   onSearchChange,
   onFavoritesClick,
   onViewHistoryClick,
+  onCartClick,
   onAuthClick,
   favoritesCount
 }) => {
@@ -23,6 +26,9 @@ export const Header: React.FC<HeaderProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [showUserMenu, setShowUserMenu] = useState(false);
   const { user, logout, isAuthenticated } = useAuth();
+  const { cart } = useApp();
+
+  const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
@@ -79,6 +85,19 @@ export const Header: React.FC<HeaderProps> = ({
               {favoritesCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-primary-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center">
                   {favoritesCount}
+                </span>
+              )}
+            </Button>
+            <Button
+              variant="ghost"
+              icon={ShoppingCart}
+              onClick={onCartClick}
+              className="text-gray-600 hover:text-primary-500 relative"
+            >
+              Giỏ hàng
+              {cartItemCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-primary-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center">
+                  {cartItemCount}
                 </span>
               )}
             </Button>
@@ -172,6 +191,20 @@ export const Header: React.FC<HeaderProps> = ({
                 className="justify-start"
               >
                 Lịch sử xem
+              </Button>
+              <Button
+                variant="ghost"
+                icon={ShoppingCart}
+                onClick={onCartClick}
+                fullWidth
+                className="justify-start relative"
+              >
+                Giỏ hàng
+                {cartItemCount > 0 && (
+                  <span className="absolute right-4 bg-primary-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center">
+                    {cartItemCount}
+                  </span>
+                )}
               </Button>
             </div>
           </div>

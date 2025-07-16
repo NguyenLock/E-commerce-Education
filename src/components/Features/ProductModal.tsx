@@ -1,19 +1,14 @@
 import React from 'react';
 import { Star, Clock, User, BookOpen, Heart, ShoppingCart } from 'lucide-react';
-import  type { Product } from '../../types/index';
+import  type { ProductModalProps } from '../../types/index';
 import { Modal } from '../UI/Modal';
 import { Button } from '../UI/Button';
 import { Badge } from '../UI/Badget';
 import { useApp } from '../../context/AppContext';
 
-interface ProductModalProps {
-  product: Product | null;
-  isOpen: boolean;
-  onClose: () => void;
-}
 
 export const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onClose }) => {
-  const { favorites, addToFavorites, removeFromFavorites, addToViewHistory } = useApp();
+  const { favorites, addToFavorites, removeFromFavorites, addToViewHistory, addToCart } = useApp();
 
   if (!product) return null;
 
@@ -25,6 +20,10 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onC
     } else {
       addToFavorites(product.id);
     }
+  };
+
+  const handleAddToCart = () => {
+    addToCart(product.id);
   };
 
   const formatPrice = (price: number) => {
@@ -122,8 +121,9 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onC
                 size="lg"
                 icon={ShoppingCart}
                 className="flex-1"
+                onClick={handleAddToCart}
               >
-                Mua ngay
+                Thêm vào giỏ
               </Button>
               <Button
                 variant={isFavorite ? "warning" : "outline"}

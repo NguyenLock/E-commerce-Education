@@ -18,12 +18,14 @@ import { useApp } from "../../context/AppContext";
 interface HomePageProps {
   onShowFavorites: () => void;
   onShowHistory: () => void;
+  onShowCart: () => void;
   onShowAuth: () => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
   onShowFavorites,
   onShowHistory,
+  onShowCart,
   onShowAuth,
 }) => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -137,6 +139,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         onSearchChange={handleSearchChange}
         onFavoritesClick={onShowFavorites}
         onViewHistoryClick={onShowHistory}
+        onCartClick={onShowCart}
         onAuthClick={onShowAuth}
         favoritesCount={favorites.length}
       />

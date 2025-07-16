@@ -81,3 +81,16 @@ export interface Product {
     isOpen: boolean;
     onClose: () => void;
   }
+  export interface SuggestionsProps {
+    onProductClick: (product: Product) => void;
+  }
+  export interface ProductModalProps {
+    product: Product | null;
+    isOpen: boolean;
+    onClose: () => void;
+  }
+  export interface ProductCardProps {
+    product: Product;
+    onViewDetails: (product: Product) => void;
+    compact?: boolean;
+  }
