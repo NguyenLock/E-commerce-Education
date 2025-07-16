@@ -2,6 +2,18 @@
 
 Một nền tảng học tập trực tuyến toàn diện được xây dựng bằng React, TypeScript và các công nghệ web hiện đại. Hệ thống cung cấp trải nghiệm mua sắm và học tập trực tuyến với nhiều tính năng tiện ích.
 
+# Screenshots
+- HomePage
+![Home page Website](./src/assets/Website.png)
+- Product
+![Product page Website](./src/assets/Product.png)
+- Detail Product
+![Detail Page Website](./src/assets/DetailProduct.png)
+- Cart 
+![Cart Page Website](./src/assets/Cart.png)
+
+
+
 ## ✨ Tính năng Chính
 
 ### 🔐 Xác thực & Bảo mật
@@ -24,9 +36,6 @@ Một nền tảng học tập trực tuyến toàn diện được xây dựng 
 - **Chatbot tư vấn**: Hỗ trợ tìm kiếm khóa học phù hợp
 - **Gợi ý cá nhân hóa**: Đề xuất khóa học dựa trên sở thích
 
-### 🌐 Đa ngôn ngữ
-- **Tiếng Việt & Tiếng Anh**: Hỗ trợ chuyển đổi ngôn ngữ
-- **Lưu trữ cài đặt**: Ghi nhớ lựa chọn ngôn ngữ của người dùng
 
 ## 🛠️ Công nghệ sử dụng
 
