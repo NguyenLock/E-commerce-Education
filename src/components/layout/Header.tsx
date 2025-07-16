@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Heart, Menu, X, User, LogOut } from 'lucide-react';
+import { Search, Heart, Menu, X, User, LogOut, History } from 'lucide-react';
 import { Button } from '../UI/Button';
 import { Input } from '../UI/Input';
 import { useAuth } from '../../context/AuthContext';
@@ -7,6 +7,7 @@ import { useAuth } from '../../context/AuthContext';
 interface HeaderProps {
   onSearchChange: (query: string) => void;
   onFavoritesClick: () => void;
+  onViewHistoryClick: () => void;
   onAuthClick: () => void;
   favoritesCount: number;
 }
@@ -14,6 +15,7 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({
   onSearchChange,
   onFavoritesClick,
+  onViewHistoryClick,
   onAuthClick,
   favoritesCount
 }) => {
@@ -59,6 +61,14 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
+            <Button
+              variant="ghost"
+              icon={History}
+              onClick={onViewHistoryClick}
+              className="text-gray-600 hover:text-primary-500"
+            >
+              Lịch sử xem
+            </Button>
             <Button
               variant="ghost"
               icon={Heart}
@@ -153,6 +163,15 @@ export const Header: React.FC<HeaderProps> = ({
                     {favoritesCount}
                   </span>
                 )}
+              </Button>
+              <Button
+                variant="ghost"
+                icon={History}
+                onClick={onViewHistoryClick}
+                fullWidth
+                className="justify-start"
+              >
+                Lịch sử xem
               </Button>
             </div>
           </div>
