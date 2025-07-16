@@ -1,69 +1,88 @@
-# React + TypeScript + Vite
+# 🎓 Nền tảng Học tập Trực tuyến EduMarket
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Một nền tảng học tập trực tuyến toàn diện được xây dựng bằng React, TypeScript và các công nghệ web hiện đại. Hệ thống cung cấp trải nghiệm mua sắm và học tập trực tuyến với nhiều tính năng tiện ích.
 
-Currently, two official plugins are available:
+## ✨ Tính năng Chính
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 🔐 Xác thực & Bảo mật
+- **Đăng nhập/Đăng ký**: Hệ thống xác thực người dùng an toàn
+- **Quản lý Token**: Sử dụng JWT để bảo mật thông tin
+- **Lưu trữ Local**: Duy trì trạng thái đăng nhập và giỏ hàng
 
-## Expanding the ESLint configuration
+### 📚 Quản lý Khóa học
+- **Tìm kiếm & Lọc**: Tìm kiếm khóa học với nhiều tiêu chí
+- **Danh mục**: Phân loại khóa học theo chủ đề
+- **Đánh giá**: Hệ thống đánh giá và nhận xét từ học viên
+- **Giảng viên**: Thông tin chi tiết về giảng viên
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🛒 Giỏ hàng & Yêu thích
+- **Giỏ hàng**: Thêm/xóa khóa học, tính tổng tiền
+- **Danh sách yêu thích**: Lưu trữ các khóa học quan tâm
+- **Lịch sử xem**: Theo dõi các khóa học đã xem
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 🤖 Trợ lý AI
+- **Chatbot tư vấn**: Hỗ trợ tìm kiếm khóa học phù hợp
+- **Gợi ý cá nhân hóa**: Đề xuất khóa học dựa trên sở thích
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### 🌐 Đa ngôn ngữ
+- **Tiếng Việt & Tiếng Anh**: Hỗ trợ chuyển đổi ngôn ngữ
+- **Lưu trữ cài đặt**: Ghi nhớ lựa chọn ngôn ngữ của người dùng
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🛠️ Công nghệ sử dụng
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Frontend
+- **React + TypeScript**: Phát triển UI với type-safe
+- **Vite**: Công cụ build hiện đại và nhanh chóng
+- **React Router**: Điều hướng trong ứng dụng
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### UI & Styling
+- **Tailwind CSS**: Framework CSS tiện lợi
+- **Lucide Icons**: Thư viện icon đẹp và nhẹ
+- **Custom Components**: Các component UI tái sử dụng
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Quản lý State & API
+- **Context API**: Quản lý state toàn cục
+- **Local Storage**: Lưu trữ dữ liệu cục bộ
+- **i18next**: Quản lý đa ngôn ngữ
+
+## 🚀 Hướng dẫn cài đặt
+
+1. **Clone dự án**
+   ```bash
+   git clone <repository-url>
+   cd E-commerce_Education_FE
+   ```
+
+2. **Cài đặt dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Khởi chạy môi trường development**
+   ```bash
+   npm run dev
+   ```
+
+## 📱 Cấu trúc ứng dụng
+
+### Trang chính
+- **Trang chủ**: Hiển thị khóa học nổi bật và danh mục
+- **Chi tiết khóa học**: Thông tin chi tiết và đánh giá
+- **Giỏ hàng**: Quản lý khóa học đã chọn
+- **Yêu thích**: Danh sách khóa học yêu thích
+
+### Components chính
+- **Header**: Điều hướng và tìm kiếm
+- **Filterbar**: Lọc khóa học theo tiêu chí
+- **ProductCard**: Hiển thị thông tin khóa học
+- **Chatbot**: Trợ lý AI tư vấn
+- **LanguageSwitch**: Chuyển đổi ngôn ngữ
+
+## 👥 Phát triển bởi
+- **Developer**: **Nguyen Tan Loc**
+- **Project**: E-commerce Education Platform
+- **Stack**: React + TypeScript + Vite
+
+---
+
+Để biết thêm thông tin chi tiết, vui lòng liên hệ team phát triển.
