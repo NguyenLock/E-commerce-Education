@@ -75,29 +75,42 @@ export interface SkeletonProps {
   rounded?: boolean;
 }
 
+export interface Review {
+  id: string;
+  userId: string;
+  userName: string;
+  userAvatar: string;
+  rating: number;
+  comment: string;
+  date: string;
+  helpful: number;
+}
+
+export interface Instructor {
+  name: string;
+  title: string;
+  avatar: string;
+  bio?: string;
+}
 
 export interface Product {
-    id: string;
-    name: string;
-    price: number;
-    originalPrice?: number;
-    image: string;
-    description: string;
-    fullDescription: string;
-    category: string;
-    rating: number;
-    reviews: number;
-    instructor: {
-      name: string;
-      title: string;
-      avatar: string;
-    };
-    duration: string;
-    level: 'Beginner' | 'Intermediate' | 'Advanced';
-    tags: string[];
-    features: string[];
-    isFavorite?: boolean;
-  }
+  id: string;
+  name: string;
+  price: number;
+  originalPrice?: number;
+  image: string;
+  description: string;
+  fullDescription: string;
+  category: string;
+  rating: number;
+  reviews: number;
+  instructor: Instructor;
+  duration: string;
+  level: 'Beginner' | 'Intermediate' | 'Advanced';
+  tags: string[];
+  features: string[];
+  reviewList?: Review[];
+}
   
   export interface User {
     id: string;

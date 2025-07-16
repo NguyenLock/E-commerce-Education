@@ -1,14 +1,23 @@
-import React from 'react';
-import { Star, Clock, User, BookOpen, Heart, ShoppingCart } from 'lucide-react';
-import  type { ProductModalProps } from '../../types/index';
-import { Modal } from '../UI/Modal';
-import { Button } from '../UI/Button';
-import { Badge } from '../UI/Badget';
-import { useApp } from '../../context/AppContext';
+import React from "react";
+import { Star, Clock, User, BookOpen, Heart, ShoppingCart, ThumbsUp, Briefcase } from "lucide-react";
+import type { ProductModalProps } from "../../types/index";
+import { Modal } from "../UI/Modal";
+import { Button } from "../UI/Button";
+import { Badge } from "../UI/Badget";
+import { useApp } from "../../context/AppContext";
 
-
-export const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onClose }) => {
-  const { favorites, addToFavorites, removeFromFavorites, addToViewHistory, addToCart } = useApp();
+export const ProductModal: React.FC<ProductModalProps> = ({
+  product,
+  isOpen,
+  onClose,
+}) => {
+  const {
+    favorites,
+    addToFavorites,
+    removeFromFavorites,
+    addToViewHistory,
+    addToCart,
+  } = useApp();
 
   if (!product) return null;
 
@@ -27,14 +36,24 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onC
   };
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND'
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
     }).format(price);
   };
 
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('vi-VN', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
   const discountPercent = product.originalPrice
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
+    ? Math.round(
+        ((product.originalPrice - product.price) / product.originalPrice) * 100
+      )
     : 0;
 
   React.useEffect(() => {
@@ -47,7 +66,6 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onC
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <div className="p-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Product Image */}
           <div className="relative">
             <img
               src={product.image}
@@ -55,10 +73,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onC
               className="w-full h-80 object-cover rounded-lg"
             />
             {discountPercent > 0 && (
-              <Badge
-                variant="warning"
-                className="absolute top-4 left-4"
-              >
+              <Badge variant="warning" className="absolute top-4 left-4">
                 -{discountPercent}%
               </Badge>
             )}
@@ -68,12 +83,8 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onC
           <div className="space-y-6">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
-                <Badge variant="accent">
-                  {product.category}
-                </Badge>
-                <Badge variant="secondary">
-                  {product.level}
-                </Badge>
+                <Badge variant="accent">{product.category}</Badge>
+                <Badge variant="secondary">{product.level}</Badge>
               </div>
 
               <h1 className="text-3xl font-bold text-gray-900">
@@ -132,14 +143,37 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onC
                 onClick={handleFavoriteClick}
                 className={isFavorite ? "text-white" : ""}
               >
-                {isFavorite ? 'Đã thích' : 'Yêu thích'}
+                {isFavorite ? "Đã thích" : "Yêu thích"}
               </Button>
             </div>
           </div>
         </div>
 
-        {/* Product Description */}
-        <div className="mt-8 space-y-6">
+        <div className="mt-8 space-y-8">
+          {/* Instructor Section */}
+          <div className="bg-gray-50 rounded-lg p-6">
+            <h3 className="text-xl font-semibold text-gray-900 mb-4">
+              Thông tin giảng viên
+            </h3>
+            <div className="flex items-start space-x-4">
+              <img
+                src={product.instructor.avatar}
+                alt={product.instructor.name}
+                className="w-16 h-16 rounded-full object-cover"
+              />
+              <div className="flex-1">
+                <h4 className="text-lg font-semibold text-gray-900">
+                  {product.instructor.name}
+                </h4>
+                <div className="flex items-center text-gray-600 mb-2">
+                  <Briefcase className="w-4 h-4 mr-2" />
+                  <span>{product.instructor.title}</span>
+                </div>
+                <p className="text-gray-600">{product.instructor.bio}</p>
+              </div>
+            </div>
+          </div>
+
           <div>
             <h3 className="text-xl font-semibold text-gray-900 mb-4">
               Mô tả khóa học
@@ -149,7 +183,6 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onC
             </p>
           </div>
 
-          {/* Features */}
           <div>
             <h3 className="text-xl font-semibold text-gray-900 mb-4">
               Nội dung khóa học
@@ -164,7 +197,57 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onC
             </div>
           </div>
 
-          {/* Tags */}
+          {/* Reviews Section */}
+          {product.reviewList && product.reviewList.length > 0 && (
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                Đánh giá từ học viên
+              </h3>
+              <div className="space-y-6">
+                {product.reviewList.map((review) => (
+                  <div key={review.id} className="bg-white rounded-lg border p-4">
+                    <div className="flex items-start space-x-4">
+                      <img
+                        src={review.userAvatar}
+                        alt={review.userName}
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between">
+                          <h4 className="text-lg font-semibold text-gray-900">
+                            {review.userName}
+                          </h4>
+                          <span className="text-sm text-gray-500">
+                            {formatDate(review.date)}
+                          </span>
+                        </div>
+                        <div className="flex items-center space-x-2 mb-2">
+                          <div className="flex">
+                            {[...Array(5)].map((_, i) => (
+                              <Star
+                                key={i}
+                                className={`w-4 h-4 ${
+                                  i < review.rating
+                                    ? "text-yellow-400 fill-current"
+                                    : "text-gray-300"
+                                }`}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                        <p className="text-gray-600 mb-3">{review.comment}</p>
+                        <div className="flex items-center text-gray-500 text-sm">
+                          <ThumbsUp className="w-4 h-4 mr-1" />
+                          <span>{review.helpful} người thấy hữu ích</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           <div>
             <h3 className="text-xl font-semibold text-gray-900 mb-4">
               Thẻ tags

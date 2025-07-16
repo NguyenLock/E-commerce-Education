@@ -1,21 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { Minus, Plus, X, ArrowLeft, ShoppingBag, Trash2, CreditCard, Gift } from 'lucide-react';
-import { useApp } from '../../context/AppContext';
-import { ProductCard } from '../Features/ProductCard';
-import { Card } from '../UI/Card';
-import { Button } from '../UI/Button';
-import { Badge } from '../UI/Badget';
-import { ProductModal } from '../Features/ProductModal';
-import { ProductCardSkeleton } from '../UI/Skeleton';
-import { apiService } from '../../service/api';
-import type { Product } from '../../types/index';
+import React, { useState, useEffect } from "react";
+import {
+  Minus,
+  Plus,
+  X,
+  ArrowLeft,
+  ShoppingBag,
+  Trash2,
+  CreditCard,
+  Gift,
+} from "lucide-react";
+import { useApp } from "../../context/AppContext";
+import { ProductCard } from "../Features/ProductCard";
+import { Card } from "../UI/Card";
+import { Button } from "../UI/Button";
+import { Badge } from "../UI/Badget";
+import { ProductModal } from "../Features/ProductModal";
+import { ProductCardSkeleton } from "../UI/Skeleton";
+import { apiService } from "../../service/api";
+import type { Product } from "../../types/index";
 
 interface CartPageProps {
   onBack: () => void;
 }
 
 export const CartPage: React.FC<CartPageProps> = ({ onBack }) => {
-  const { cart, updateCartQuantity, removeFromCart, clearCart, showToast } = useApp();
+  const { cart, updateCartQuantity, removeFromCart, clearCart, showToast } =
+    useApp();
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -30,8 +40,8 @@ export const CartPage: React.FC<CartPageProps> = ({ onBack }) => {
           setProducts(response.data);
         }
       } catch (error) {
-        console.error('Failed to fetch products:', error);
-        showToast('Không thể tải sản phẩm', 'error');
+        console.error("Failed to fetch products:", error);
+        showToast("Không thể tải sản phẩm", "error");
       } finally {
         setLoading(false);
       }
@@ -40,18 +50,27 @@ export const CartPage: React.FC<CartPageProps> = ({ onBack }) => {
     fetchProducts();
   }, [showToast]);
 
-  const cartProducts = cart.map(item => ({
-    ...products.find(p => p.id === item.productId),
-    quantity: item.quantity
-  })).filter((item): item is Product & { quantity: number } => item.id !== undefined);
+  const cartProducts = cart
+    .map((item) => ({
+      ...products.find((p) => p.id === item.productId),
+      quantity: item.quantity,
+    }))
+    .filter(
+      (item): item is Product & { quantity: number } => item.id !== undefined
+    );
 
   const calculateSubtotal = () => {
-    return cartProducts.reduce((total, item) => total + item.price * item.quantity, 0);
+    return cartProducts.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
   };
 
   const calculateDiscount = () => {
     return cartProducts.reduce((total, item) => {
-      const discount = item.originalPrice ? (item.originalPrice - item.price) * item.quantity : 0;
+      const discount = item.originalPrice
+        ? (item.originalPrice - item.price) * item.quantity
+        : 0;
       return total + discount;
     }, 0);
   };
@@ -60,34 +79,33 @@ export const CartPage: React.FC<CartPageProps> = ({ onBack }) => {
     return calculateSubtotal();
   };
 
-  // Get similar products based on categories and tags in cart
   const getSimilarProducts = () => {
     if (cartProducts.length === 0) return [];
 
-    const cartCategories = new Set(cartProducts.map(p => p.category));
-    const cartTags = new Set(cartProducts.flatMap(p => p.tags));
-    
+    const cartCategories = new Set(cartProducts.map((p) => p.category));
+    const cartTags = new Set(cartProducts.flatMap((p) => p.tags));
+
     return products
-      .filter(p => 
-        !cart.some(item => item.productId === p.id) && // Not in cart
-        (cartCategories.has(p.category) || // Same category
-         p.tags.some(tag => cartTags.has(tag))) // Has common tags
+      .filter(
+        (p) =>
+          !cart.some((item) => item.productId === p.id) &&
+          (cartCategories.has(p.category) ||
+            p.tags.some((tag) => cartTags.has(tag)))
       )
-      .slice(0, 4); // Limit to 4 suggestions
+      .slice(0, 4);
   };
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND'
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
     }).format(price);
   };
 
   const handleCheckout = async () => {
     setCheckoutLoading(true);
-    // Simulate checkout process
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    showToast('Đặt hàng thành công! Cảm ơn bạn đã mua hàng.', 'success');
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    showToast("Đặt hàng thành công! Cảm ơn bạn đã mua hàng.", "success");
     clearCart();
     setCheckoutLoading(false);
     onBack();
@@ -130,7 +148,8 @@ export const CartPage: React.FC<CartPageProps> = ({ onBack }) => {
               Giỏ hàng của bạn đang trống
             </h2>
             <p className="text-gray-600 mb-8 max-w-md mx-auto">
-              Hãy khám phá các khóa học tuyệt vời và thêm chúng vào giỏ hàng để bắt đầu hành trình học tập!
+              Hãy khám phá các khóa học tuyệt vời và thêm chúng vào giỏ hàng để
+              bắt đầu hành trình học tập!
             </p>
             <Button variant="primary" onClick={onBack} size="lg">
               Khám phá khóa học
@@ -156,7 +175,10 @@ export const CartPage: React.FC<CartPageProps> = ({ onBack }) => {
 
               <div className="space-y-4">
                 {cartProducts.map((item) => (
-                  <Card key={item.id} className="p-6 hover:shadow-lg transition-shadow">
+                  <Card
+                    key={item.id}
+                    className="p-6 hover:shadow-lg transition-shadow"
+                  >
                     <div className="flex items-start space-x-6">
                       <div className="relative flex-shrink-0">
                         <img
@@ -170,7 +192,13 @@ export const CartPage: React.FC<CartPageProps> = ({ onBack }) => {
                             className="absolute -top-2 -right-2"
                             size="sm"
                           >
-                            -{Math.round(((item.originalPrice - item.price) / item.originalPrice) * 100)}%
+                            -
+                            {Math.round(
+                              ((item.originalPrice - item.price) /
+                                item.originalPrice) *
+                                100
+                            )}
+                            %
                           </Badge>
                         )}
                       </div>
@@ -216,13 +244,17 @@ export const CartPage: React.FC<CartPageProps> = ({ onBack }) => {
                           </div>
 
                           <div className="flex items-center space-x-3">
-                            <span className="text-sm text-gray-600">Số lượng:</span>
+                            <span className="text-sm text-gray-600">
+                              Số lượng:
+                            </span>
                             <div className="flex items-center space-x-2 bg-gray-100 rounded-lg p-1">
                               <Button
                                 variant="ghost"
                                 size="sm"
                                 icon={Minus}
-                                onClick={() => updateCartQuantity(item.id, item.quantity - 1)}
+                                onClick={() =>
+                                  updateCartQuantity(item.id, item.quantity - 1)
+                                }
                                 disabled={item.quantity <= 1}
                                 className="w-8 h-8 p-0"
                               />
@@ -233,7 +265,9 @@ export const CartPage: React.FC<CartPageProps> = ({ onBack }) => {
                                 variant="ghost"
                                 size="sm"
                                 icon={Plus}
-                                onClick={() => updateCartQuantity(item.id, item.quantity + 1)}
+                                onClick={() =>
+                                  updateCartQuantity(item.id, item.quantity + 1)
+                                }
                                 className="w-8 h-8 p-0"
                               />
                             </div>
@@ -252,20 +286,20 @@ export const CartPage: React.FC<CartPageProps> = ({ onBack }) => {
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">
                     Tóm tắt đơn hàng
                   </h3>
-                  
+
                   <div className="space-y-3 mb-4">
                     <div className="flex justify-between text-gray-600">
                       <span>Tạm tính ({getTotalItems()} sản phẩm)</span>
                       <span>{formatPrice(calculateSubtotal())}</span>
                     </div>
-                    
+
                     {calculateDiscount() > 0 && (
                       <div className="flex justify-between text-green-600">
                         <span>Giảm giá</span>
                         <span>-{formatPrice(calculateDiscount())}</span>
                       </div>
                     )}
-                    
+
                     <div className="border-t pt-3">
                       <div className="flex justify-between text-lg font-semibold text-gray-900">
                         <span>Tổng cộng</span>
@@ -301,14 +335,16 @@ export const CartPage: React.FC<CartPageProps> = ({ onBack }) => {
                     Có thể bạn cũng thích
                   </h3>
                   <div className="space-y-4">
-                    {getSimilarProducts().slice(0, 3).map((product) => (
-                      <ProductCard
-                        key={product.id}
-                        product={product}
-                        onViewDetails={setSelectedProduct}
-                        compact
-                      />
-                    ))}
+                    {getSimilarProducts()
+                      .slice(0, 3)
+                      .map((product) => (
+                        <ProductCard
+                          key={product.id}
+                          product={product}
+                          onViewDetails={setSelectedProduct}
+                          compact
+                        />
+                      ))}
                   </div>
                 </Card>
               </div>

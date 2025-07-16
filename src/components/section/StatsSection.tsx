@@ -1,5 +1,5 @@
-import React from 'react';
-import { stats } from '../../data/mockStats';
+import React from "react";
+import { stats } from "../../data/mockStats";
 
 export const StatsSection: React.FC = () => {
   return (
@@ -19,7 +19,9 @@ export const StatsSection: React.FC = () => {
                     <Icon className="w-8 h-8 text-white" />
                   </div>
                 </div>
-                <div className="text-3xl md:text-4xl font-bold mb-2">{stat.value}</div>
+                <div className="text-3xl md:text-4xl font-bold mb-2">
+                  {stat.value}
+                </div>
                 <div className="text-lg opacity-90">{stat.label}</div>
               </div>
             );

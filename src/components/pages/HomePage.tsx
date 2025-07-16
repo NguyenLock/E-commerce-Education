@@ -16,7 +16,6 @@ import { apiService } from "../../service/api";
 import { useApp } from "../../context/AppContext";
 import type { HomePageProps } from "../../types/index";
 
-
 export const HomePage: React.FC<HomePageProps> = ({
   onShowFavorites,
   onShowHistory,
@@ -57,7 +56,9 @@ export const HomePage: React.FC<HomePageProps> = ({
     } catch (error) {
       showToast("Có lỗi xảy ra khi tải sản phẩm", "error");
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     }
   };
 
@@ -124,6 +125,18 @@ export const HomePage: React.FC<HomePageProps> = ({
     }, 100);
   };
 
+  const handleCategoryClick = (category: string) => {
+    setFilters((prev) => ({ ...prev, category }));
+    setShowProductSection(true);
+
+    setTimeout(() => {
+      const element = document.getElementById("products-section");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header
@@ -138,7 +151,7 @@ export const HomePage: React.FC<HomePageProps> = ({
       <main>
         <HeroSection onExploreClick={handleExploreClick} />
 
-        <FeaturedCategories />
+        <FeaturedCategories onCategoryClick={handleCategoryClick} />
 
         <StatsSection />
 
