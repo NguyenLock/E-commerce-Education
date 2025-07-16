@@ -84,7 +84,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, isOpen, onC
               <div className="flex items-center space-x-4 text-gray-600">
                 <div className="flex items-center">
                   <User className="w-5 h-5 mr-2" />
-                  {product.instructor}
+                  {product.instructor.name}
                 </div>
                 <div className="flex items-center">
                   <Clock className="w-5 h-5 mr-2" />
