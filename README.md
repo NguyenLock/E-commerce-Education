@@ -40,7 +40,6 @@ Một nền tảng học tập trực tuyến toàn diện được xây dựng 
 ### Quản lý State & API
 - **Context API**: Quản lý state toàn cục
 - **Local Storage**: Lưu trữ dữ liệu cục bộ
-- **i18next**: Quản lý đa ngôn ngữ
 
 ## 🚀 Hướng dẫn cài đặt
 
