@@ -20,7 +20,7 @@ export const Suggestions: React.FC<SuggestionsProps> = ({ onProductClick }) => {
     setError(null);
     
     try {
-      const response = await apiService.getSuggestions('user123');
+      const response = await apiService.getSuggestions();
       if (response.success) {
         setSuggestions(response.data);
         showToast('Đã tải gợi ý thành công!', 'success');
