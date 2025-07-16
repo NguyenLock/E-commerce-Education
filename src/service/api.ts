@@ -28,7 +28,7 @@ export const apiService = {
     };
   },
 
-  getSuggestions: async (userId: string): Promise<ApiResponse<Product[]>> => {
+  getSuggestions: async (): Promise<ApiResponse<Product[]>> => {
     await delay(1200);
 
     if (Math.random() < 0.2) {
@@ -45,7 +45,7 @@ export const apiService = {
     };
   },
 
-  getUserProfile: async (userId: string): Promise<ApiResponse<User>> => {
+  getUserProfile: async (): Promise<ApiResponse<User>> => {
     await delay(300);
     return {
       data: mockUser,

@@ -427,7 +427,12 @@ export const mockSuggestions = [
     category: 'Programming',
     rating: 4.7,
     reviews: 654,
-    instructor: 'Robert Kim',
+    instructor: {
+      name: 'Robert Kim',
+      title: 'Senior JavaScript Developer',
+      avatar: 'https://i.pravatar.cc/150?img=19',
+      bio: '10+ years of JavaScript development experience'
+    },
     duration: '8 weeks',
     level: 'Advanced' as const,
     tags: ['JavaScript', 'ES6+', 'Web Development'],
@@ -443,7 +448,12 @@ export const mockSuggestions = [
     category: 'Language Learning',
     rating: 4.6,
     reviews: 432,
-    instructor: 'Jennifer White',
+    instructor: {
+      name: 'Jennifer White',
+      title: 'Business English Specialist',
+      avatar: 'https://i.pravatar.cc/150?img=20',
+      bio: '15+ years teaching Business English'
+    },
     duration: '10 weeks',
     level: 'Intermediate' as const,
     tags: ['Business English', 'Professional Communication', 'ESL'],
