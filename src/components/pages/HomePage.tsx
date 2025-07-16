@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import  type { Product, SearchFilters } from "../../types/index";
+import type { Product, SearchFilters } from "../../types/index";
 import { Header } from "../layout/Header";
 import { HeroSection } from "../section/HeroSection";
 import { FeaturedCategories } from "../section/FeaturedCategories";
@@ -14,13 +14,8 @@ import { Chatbot } from "../Features/Chatbot";
 import { ProductCardSkeleton } from "../UI/Skeleton";
 import { apiService } from "../../service/api";
 import { useApp } from "../../context/AppContext";
+import type { HomePageProps } from "../../types/index";
 
-interface HomePageProps {
-  onShowFavorites: () => void;
-  onShowHistory: () => void;
-  onShowCart: () => void;
-  onShowAuth: () => void;
-}
 
 export const HomePage: React.FC<HomePageProps> = ({
   onShowFavorites,
@@ -69,7 +64,6 @@ export const HomePage: React.FC<HomePageProps> = ({
   const filterProducts = () => {
     let filtered = products;
 
-    // Filter by search query
     if (filters.query) {
       filtered = filtered.filter(
         (product) =>
@@ -80,7 +74,6 @@ export const HomePage: React.FC<HomePageProps> = ({
       );
     }
 
-    // Filter by price range
     if (filters.priceRange !== "all") {
       filtered = filtered.filter((product) => {
         switch (filters.priceRange) {
@@ -96,14 +89,12 @@ export const HomePage: React.FC<HomePageProps> = ({
       });
     }
 
-    // Filter by category
     if (filters.category !== "Tất cả") {
       filtered = filtered.filter(
         (product) => product.category === filters.category
       );
     }
 
-    // Filter by level
     if (filters.level !== "Tất cả") {
       filtered = filtered.filter((product) => product.level === filters.level);
     }
@@ -124,7 +115,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
   const handleExploreClick = () => {
     setShowProductSection(true);
-    // Smooth scroll to products section
+
     setTimeout(() => {
       const element = document.getElementById("products-section");
       if (element) {
@@ -145,29 +136,21 @@ export const HomePage: React.FC<HomePageProps> = ({
       />
 
       <main>
-        {/* Hero Section */}
         <HeroSection onExploreClick={handleExploreClick} />
 
-        {/* Featured Categories */}
         <FeaturedCategories />
 
-        {/* Stats Section */}
         <StatsSection />
 
-        {/* Testimonials */}
         <TestimonialsSection />
 
-        {/* Products Section */}
         {showProductSection && (
           <section id="products-section" className="py-16 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              {/* AI Suggestions */}
               <Suggestions onProductClick={handleProductClick} />
 
-              {/* Filters */}
               <FilterBar filters={filters} onFiltersChange={setFilters} />
 
-              {/* Products Grid */}
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-2xl font-bold text-gray-900">

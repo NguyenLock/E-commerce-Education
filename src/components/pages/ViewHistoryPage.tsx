@@ -35,7 +35,6 @@ export const ViewHistoryPage: React.FC<ViewHistoryPageProps> = ({ onBack }) => {
     fetchProducts();
   }, []);
 
-  // Get viewed products and sort by most recently viewed
   const viewedProducts = viewHistory
     .map(id => products.find(p => p.id === id))
     .filter((product): product is Product => product !== undefined)

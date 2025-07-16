@@ -1,22 +1,18 @@
-import React from 'react';
-
-interface SkeletonProps {
-  className?: string;
-  width?: string;
-  height?: string;
-  rounded?: boolean;
-}
+import React from "react";
+import type { SkeletonProps } from "../../types/index";
 
 export const Skeleton: React.FC<SkeletonProps> = ({
-  className = '',
-  width = 'w-full',
-  height = 'h-4',
-  rounded = true
+  className = "",
+  width = "w-full",
+  height = "h-4",
+  rounded = true,
 }) => {
-  const roundedClass = rounded ? 'rounded' : '';
-  
+  const roundedClass = rounded ? "rounded" : "";
+
   return (
-    <div className={`bg-gray-200 animate-pulse ${width} ${height} ${roundedClass} ${className}`} />
+    <div
+      className={`bg-gray-200 animate-pulse ${width} ${height} ${roundedClass} ${className}`}
+    />
   );
 };
 

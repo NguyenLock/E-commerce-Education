@@ -1,15 +1,5 @@
 import React from 'react';
-
-interface CardProps {
-  children: React.ReactNode;
-  className?: string;
-  hover?: boolean;
-  shadow?: 'sm' | 'md' | 'lg' | 'xl' | 'none';
-  rounded?: 'sm' | 'md' | 'lg' | 'xl' | 'none';
-  padding?: 'sm' | 'md' | 'lg' | 'xl' | 'none';
-  border?: boolean;
-  onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
-}
+import type { CardProps } from '../../types/index';
 
 export const Card: React.FC<CardProps> = ({
   children,

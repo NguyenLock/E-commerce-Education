@@ -1,28 +1,26 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import  type { AuthUser, LoginCredentials, RegisterCredentials } from '../types/index';
-import { authService } from '../service/authService';
-import { useApp } from './AppContext';
-
-interface AuthContextType {
-  user: AuthUser | null;
-  loading: boolean;
-  login: (credentials: LoginCredentials) => Promise<boolean>;
-  register: (credentials: RegisterCredentials) => Promise<boolean>;
-  logout: () => Promise<void>;
-  isAuthenticated: boolean;
-}
+import React, { createContext, useContext, useState, useEffect } from "react";
+import type {
+  AuthContextType,
+  AuthUser,
+  LoginCredentials,
+  RegisterCredentials,
+} from "../types/index";
+import { authService } from "../service/authService";
+import { useApp } from "./AppContext";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 };
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
   const { showToast } = useApp();
@@ -38,7 +36,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setUser(response.data);
       }
     } catch (error) {
-      console.error('Auth check failed:', error);
+      console.error("Auth check failed:", error);
     } finally {
       setLoading(false);
     }
@@ -47,37 +45,39 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (credentials: LoginCredentials): Promise<boolean> => {
     try {
       const response = await authService.login(credentials);
-      
+
       if (response.success) {
         setUser(response.data);
-        localStorage.setItem('user', JSON.stringify(response.data));
-        showToast(response.message || 'Đăng nhập thành công!', 'success');
+        localStorage.setItem("user", JSON.stringify(response.data));
+        showToast(response.message || "Đăng nhập thành công!", "success");
         return true;
       } else {
-        showToast(response.message || 'Đăng nhập thất bại', 'error');
+        showToast(response.message || "Đăng nhập thất bại", "error");
         return false;
       }
     } catch (error) {
-      showToast('Có lỗi xảy ra khi đăng nhập', 'error');
+      showToast("Có lỗi xảy ra khi đăng nhập", "error");
       return false;
     }
   };
 
-  const register = async (credentials: RegisterCredentials): Promise<boolean> => {
+  const register = async (
+    credentials: RegisterCredentials
+  ): Promise<boolean> => {
     try {
       const response = await authService.register(credentials);
-      
+
       if (response.success) {
         setUser(response.data);
-        localStorage.setItem('user', JSON.stringify(response.data));
-        showToast(response.message || 'Đăng ký thành công!', 'success');
+        localStorage.setItem("user", JSON.stringify(response.data));
+        showToast(response.message || "Đăng ký thành công!", "success");
         return true;
       } else {
-        showToast(response.message || 'Đăng ký thất bại', 'error');
+        showToast(response.message || "Đăng ký thất bại", "error");
         return false;
       }
     } catch (error) {
-      showToast('Có lỗi xảy ra khi đăng ký', 'error');
+      showToast("Có lỗi xảy ra khi đăng ký", "error");
       return false;
     }
   };
@@ -86,10 +86,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       await authService.logout();
       setUser(null);
-      localStorage.removeItem('user');
-      showToast('Đăng xuất thành công!', 'info');
+      localStorage.removeItem("user");
+      showToast("Đăng xuất thành công!", "info");
     } catch (error) {
-      showToast('Có lỗi xảy ra khi đăng xuất', 'error');
+      showToast("Có lỗi xảy ra khi đăng xuất", "error");
     }
   };
 
@@ -101,7 +101,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         login,
         register,
         logout,
-        isAuthenticated: !!user
+        isAuthenticated: !!user,
       }}
     >
       {children}

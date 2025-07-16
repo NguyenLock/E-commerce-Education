@@ -4,15 +4,7 @@ import { Button } from '../UI/Button';
 import { Input } from '../UI/Input';
 import { useAuth } from '../../context/AuthContext';
 import { useApp } from '../../context/AppContext';
-
-interface HeaderProps {
-  onSearchChange: (query: string) => void;
-  onFavoritesClick: () => void;
-  onViewHistoryClick: () => void;
-  onCartClick: () => void;
-  onAuthClick: () => void;
-  favoritesCount: number;
-}
+import type { HeaderProps } from '../../types/index';
 
 export const Header: React.FC<HeaderProps> = ({
   onSearchChange,

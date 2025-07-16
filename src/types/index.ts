@@ -1,3 +1,81 @@
+import type { LucideIcon } from "lucide-react";
+
+export interface HeaderProps {
+  onSearchChange: (query: string) => void;
+  onFavoritesClick: () => void;
+  onViewHistoryClick: () => void;
+  onCartClick: () => void;
+  onAuthClick: () => void;
+  favoritesCount: number;
+}
+
+export interface AuthPageProps {
+  onBack: () => void;
+  initialMode?: 'login' | 'register';
+}
+export interface AuthContextType {
+  user: AuthUser | null;
+  loading: boolean;
+  login: (credentials: LoginCredentials) => Promise<boolean>;
+  register: (credentials: RegisterCredentials) => Promise<boolean>;
+  logout: () => Promise<void>;
+  isAuthenticated: boolean;
+}
+export interface HomePageProps {
+  onShowFavorites: () => void;
+  onShowHistory: () => void;
+  onShowCart: () => void;
+  onShowAuth: () => void;
+}
+
+export interface BadgeProps {
+  children: React.ReactNode;
+  variant?: 'primary' | 'secondary' | 'accent' | 'warning' | 'success' | 'error';
+  size?: 'sm' | 'md' | 'lg';
+  className?: string;
+}
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'accent' | 'warning' | 'outline' | 'ghost';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  icon?: LucideIcon;
+  iconPosition?: 'left' | 'right';
+  loading?: boolean;
+  fullWidth?: boolean;
+  rounded?: boolean;
+}
+export interface CardProps {
+  children: React.ReactNode;
+  className?: string;
+  hover?: boolean;
+  shadow?: 'sm' | 'md' | 'lg' | 'xl' | 'none';
+  rounded?: 'sm' | 'md' | 'lg' | 'xl' | 'none';
+  padding?: 'sm' | 'md' | 'lg' | 'xl' | 'none';
+  border?: boolean;
+  onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
+}
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
+  error?: string;
+  icon?: LucideIcon;
+  iconPosition?: 'left' | 'right';
+  fullWidth?: boolean;
+}
+export interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title?: string;
+  children: React.ReactNode;
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+  showCloseButton?: boolean;
+}
+export interface SkeletonProps {
+  className?: string;
+  width?: string;
+  height?: string;
+  rounded?: boolean;
+}
+
+
 export interface Product {
     id: string;
     name: string;
@@ -93,4 +171,8 @@ export interface Product {
     product: Product;
     onViewDetails: (product: Product) => void;
     compact?: boolean;
+  }
+  export interface CartItem {
+    productId: string;
+    quantity: number;
   }

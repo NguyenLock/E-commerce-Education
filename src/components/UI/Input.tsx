@@ -1,14 +1,5 @@
 import React from 'react';
-import { DivideIcon } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
-
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  error?: string;
-  icon?: LucideIcon;
-  iconPosition?: 'left' | 'right';
-  fullWidth?: boolean;
-}
+import type { InputProps } from '../../types/index';
 
 export const Input: React.FC<InputProps> = ({
   label,

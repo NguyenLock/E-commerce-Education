@@ -4,11 +4,8 @@ import { LoginForm } from '../auth/LoginForm';
 import { RegisterForm } from '../auth/Register';
 import { Button } from '../UI/Button';
 import { useAuth } from '../../context/AuthContext';
+import type { AuthPageProps } from '../../types/index';
 
-interface AuthPageProps {
-  onBack: () => void;
-  initialMode?: 'login' | 'register';
-}
 
 export const AuthPage: React.FC<AuthPageProps> = ({ onBack, initialMode = 'login' }) => {
   const [mode, setMode] = useState<'login' | 'register'>(initialMode);

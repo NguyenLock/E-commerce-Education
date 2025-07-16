@@ -1,16 +1,5 @@
 import React from 'react';
-import { DivideIcon } from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
-
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'accent' | 'warning' | 'outline' | 'ghost';
-  size?: 'sm' | 'md' | 'lg' | 'xl';
-  icon?: LucideIcon;
-  iconPosition?: 'left' | 'right';
-  loading?: boolean;
-  fullWidth?: boolean;
-  rounded?: boolean;
-}
+import type { ButtonProps } from '../../types/index';
 
 export const Button: React.FC<ButtonProps> = ({
   children,

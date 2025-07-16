@@ -1,11 +1,5 @@
 import React from 'react';
-
-interface BadgeProps {
-  children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'accent' | 'warning' | 'success' | 'error';
-  size?: 'sm' | 'md' | 'lg';
-  className?: string;
-}
+import type { BadgeProps } from '../../types/index';
 
 export const Badge: React.FC<BadgeProps> = ({
   children,

@@ -1,15 +1,7 @@
 import React, { useEffect } from 'react';
 import { X } from 'lucide-react';
 import { Button } from './Button';
-
-interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title?: string;
-  children: React.ReactNode;
-  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
-  showCloseButton?: boolean;
-}
+import type { ModalProps } from '../../types/index';
 
 export const Modal: React.FC<ModalProps> = ({
   isOpen,
