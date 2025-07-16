@@ -43,7 +43,6 @@ Một nền tảng học tập trực tuyến toàn diện được xây dựng 
 ### Quản lý State & API
 - **Context API**: Quản lý state toàn cục
 - **Local Storage**: Lưu trữ dữ liệu cục bộ
-- **i18next**: Quản lý đa ngôn ngữ
 
 ## 🚀 Hướng dẫn cài đặt
 
@@ -82,7 +81,3 @@ Một nền tảng học tập trực tuyến toàn diện được xây dựng 
 - **Developer**: **Nguyen Tan Loc**
 - **Project**: E-commerce Education Platform
 - **Stack**: React + TypeScript + Vite
-
----
-
-Để biết thêm thông tin chi tiết, vui lòng liên hệ team phát triển.
